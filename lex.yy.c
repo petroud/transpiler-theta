@@ -362,8 +362,8 @@ struct yy_trans_info
 	};
 static const flex_int16_t yy_accept[187] =
     {   0,
-        0,    0,   66,   63,   61,   64,   63,   63,   33,   23,
-       24,   31,   29,   25,   30,   63,   32,   58,   28,   22,
+        0,    0,   66,   64,   61,   63,   64,   64,   33,   23,
+       24,   31,   29,   25,   30,   64,   32,   58,   28,   22,
        37,   44,   39,   57,   57,   57,   26,   27,   57,   57,
        57,   57,   57,   57,   57,   57,   57,   57,   57,   57,
        57,   61,   36,    0,   60,   49,   34,   47,    0,   59,
@@ -1152,19 +1152,19 @@ YY_RULE_SETUP
 /* Line Comment, ignoring */
 	YY_BREAK
 case 63:
+/* rule 63 can match eol */
 YY_RULE_SETUP
 #line 93 "mylexer.l"
-{ printf("Unrecognized Token '%s' in line %d\n", yytext, line_num); exit(1);}
-	YY_BREAK
-case 64:
-/* rule 64 can match eol */
-YY_RULE_SETUP
-#line 94 "mylexer.l"
 { ++line_num; }
 	YY_BREAK
 case YY_STATE_EOF(INITIAL):
-#line 96 "mylexer.l"
+#line 95 "mylexer.l"
 return EOF;
+	YY_BREAK
+case 64:
+YY_RULE_SETUP
+#line 96 "mylexer.l"
+{ printf("Unrecognized Token '%s' in line %d\n", yytext, line_num); exit(1);}
 	YY_BREAK
 case 65:
 YY_RULE_SETUP

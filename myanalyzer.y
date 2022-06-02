@@ -7,6 +7,7 @@
     extern int line_num;
 %}
 
+%define parse.error verbose
 
 //----------- Lexical connection part ------------
 // In this part of the analyzer description tokens and identifiers are declared 
@@ -38,7 +39,6 @@
 %token KW_ENDDEF
 %token KW_MAIN
 %token KW_RETURN
-
 
 /* Theta delimiters */
 %token SEMICOLON
@@ -91,8 +91,6 @@
 %token <str> TK_REAL
 %token <str> TK_STRING
 
-
-
 %start input
 
 // Program body types
@@ -100,10 +98,6 @@
 %type <str> program_main
 %type <str> const_declaration
 %type <str> const_assign
-
-%type <str> global_constant_decl
-%type <str> global_variable_decl
-%type <str> global_function_decl
 
 %type <str> local_declarations
 %type <str> var_const_decl
@@ -114,7 +108,6 @@
 %type <str> fun_parameter_member
 %type <str> function_body
 %type <str> data_type
-%type <str> data_format
 %type <str> syscall
 %type <str> syscall_write_content
 %type <str> return_statement
@@ -131,6 +124,7 @@
 // Var types
 %type <str> var_decl
 %type <str> var_strings
+%type <str> var_decl_member
 
 // Loops
 %type <str> for_loop
@@ -153,14 +147,8 @@ input:
     program_start
     {
         if(yyerror_count == 0){
-            FILE *fp;
-            fp = fopen("new_program.c","w+");
-            fputs(c_prologue,fp);
-            fputs("#include \"thetalib.h\"\n",fp);
-            fputs("#include <math.h>\n",fp);
-            fputs("typedef char * str;",fp);
-            fprintf($1,fp);
-            fclose(fp);
+            puts(c_prologue);
+            printf("%s\n",$1);
         }
     }
 ;
@@ -171,34 +159,19 @@ input:
 // Left recursion
 program_start:
         program_main { $$ = template("%s\n", $1); }
-    |   global_constant_decl program_start { $$ = template("%s\n\n%s", $1, $2); }
-    |   global_variable_decl program_start { $$ = template("%s\n\n%s", $1, $2); }
-    |   global_function_decl program_start { $$ = template("%s\n\n%s", $1, $2); }
-;
-
-global_constant_decl: 
-        global_constant_decl const_declaration  { $$ = template("%s\n%s", $1, $2); }
-    |   const_declaration                       { $$ = template("%s\n",$1); }
-;
-
-global_function_decl:
-        global_function_decl fun_definition     { $$ = template("%s\n\n%s", $1, $2 ); }
-    |   fun_definition                          { $$ = template("%s\n", $1); }
-;
-
-global_variable_decl:
-        global_variable_decl var_decl           { $$ = template("%s\n%s", $1, $2); }
-    |   var_decl                                { $$ = template("%s\n%s", $1); }
+    |   const_declaration program_start { $$ = template("%s\n\n%s", $1, $2); }
+    |   var_decl program_start { $$ = template("%s\n\n%s", $1, $2); }
+    |   fun_definition program_start { $$ = template("%s\n\n%s", $1, $2); }
 ;
 
 program_main:
-        KW_DEF KW_MAIN L_PARENTHESIS R_PARENTHESIS COLON KW_ENDDEF { $$ = template("void main(){}"); }
-    |   KW_DEF KW_MAIN L_PARENTHESIS R_PARENTHESIS COLON function_body KW_ENDDEF  { $$ = template("void main(){\n%s\n}",$6); }
+        KW_DEF KW_MAIN L_PARENTHESIS R_PARENTHESIS COLON KW_ENDDEF SEMICOLON{ $$ = template("void main(){}"); }
+    |   KW_DEF KW_MAIN L_PARENTHESIS R_PARENTHESIS COLON function_body KW_ENDDEF SEMICOLON  { $$ = template("void main(){\n%s\n}",$6); }
 ;
 
 
 function_body:
-        local_declarations statements   { $$ = template("%s\n%s", $1, $2); }
+        local_declarations statements   { $$ = template("\t%s\n%s", $1, $2); }
     |   statements                      { $$ = template("%s\n", $1); }
 ;
 
@@ -231,11 +204,14 @@ const_assign:
 
 //----------------- Variable declarations ------------------
 
-
-// Needs work
 var_decl:
-        var_strings COMMA var_decl COLON data_type SEMICOLON        { $$ = template("%s %s, %s\n;", $5, $1, $3); }
-    |   var_strings COLON data_type SEMICOLON                       { $$ = template("%s %s;\n", $3, $1); }
+        var_strings COLON data_type SEMICOLON   { $$ = template("%s %s;\n", $3, $1); }
+    |   var_strings COMMA var_decl_member       { $$ = template("%s, %s;", $3, $1); }
+;
+
+var_decl_member:
+        var_strings COMMA var_decl_member       { $$ = template("%s, %s", $1, $3); }
+    |   var_strings COLON data_type SEMICOLON   { $$ = template("%s %s", $3, $1); }
 ;
 
 var_strings:
@@ -250,22 +226,14 @@ data_type:
     |   KW_BOOLEAN  { $$ = template("bool"); }
 ;
 
-data_format:
-        TK_INTEGER  { $$ = template("%s", $1); } 
-    |   TK_REAL     { $$ = template("%s", $1); }
-    |   TK_STRING   { $$ = template("%s", $1); }
-    |   KW_TRUE     { $$ = "true"; }
-    |   KW_FALSE    { $$ = "false"; }
-;
-
 //---------------- Function transpilation -----------------
 
 fun_definition:
     // Function with return type
-        KW_DEF TK_IDENTIFIER L_PARENTHESIS fun_parameters R_PARENTHESIS OP_MINUS OP_GREATER data_type COLON function_body KW_ENDDEF
+        KW_DEF TK_IDENTIFIER L_PARENTHESIS fun_parameters R_PARENTHESIS OP_MINUS OP_GREATER data_type COLON function_body KW_ENDDEF SEMICOLON
         { $$ = template("%s %s(%s) {\n%s\n}\n", $8, $2, $4, $10);}
     // Function with void return type
-    |   KW_DEF TK_IDENTIFIER L_PARENTHESIS fun_parameters R_PARENTHESIS COLON function_body KW_ENDDEF
+    |   KW_DEF TK_IDENTIFIER L_PARENTHESIS fun_parameters R_PARENTHESIS COLON function_body KW_ENDDEF SEMICOLON
         { $$ = template("void %s(%s) {\n%s\n}\n", $2, $4, $7);}
 ;
 
@@ -292,21 +260,21 @@ statements:
 ;
 
 statement:
-        assign_object SEMICOLON         { $$ = template("%s;", $1); }
-    |   function_call SEMICOLON         { $$ = template("%s;", $1); }
+        assign_object SEMICOLON         { $$ = template("%s", $1); }
+    |   function_call SEMICOLON         { $$ = template("%s", $1); }
     |   KW_CONTINUE SEMICOLON           { $$ = template("\tcontinue;\n"); }
     |   KW_BREAK SEMICOLON              { $$ = template("\tbreak;\n"); }
-    |   for_loop SEMICOLON              { $$ = template("\t%s\n", $1); }
-    |   while_loop SEMICOLON            { $$ = template("\t%s\n", $1); }
-    |   if_block SEMICOLON              { $$ = template("\t%s\n", $1); }
+    |   for_loop                        { $$ = template("\t%s\n", $1); }
+    |   while_loop                      { $$ = template("\t%s\n", $1); }
+    |   if_block                        { $$ = template("\t%s\n", $1); }
     |   return_statement                { $$ = template("\t%s\n", $1); }
-    |   syscall                         { $$ = template("\t%s\n", $1); }
+    |   syscall                         { $$ = template("%s\n", $1); }
 ;
 
 
 
 assign_object:
-    var_strings OP_ASSIGN expression   { $$ = template("   %s = %s\n", $1, $3); }
+    var_strings OP_ASSIGN expression   { $$ = template("%s = %s;\n", $1, $3); }
 ;
 
 function_call:
@@ -321,9 +289,9 @@ function_call_chain:
 
 
 for_loop:
-        KW_FOR TK_IDENTIFIER KW_IN L_BRACKET expression COLON expression R_BRACKET COLON statements KW_ENDIF
+        KW_FOR TK_IDENTIFIER KW_IN L_BRACKET expression COLON expression R_BRACKET COLON statements KW_ENDFOR SEMICOLON
         { $$ = template("\nfor(%s = %s; %s<=%s; %s++){\n\t%s\n}\n", $2, $5, $2, $7, $2, $10); }
-    |   KW_FOR TK_IDENTIFIER KW_IN L_BRACKET expression COLON expression COLON expression R_BRACKET COLON statements KW_ENDIF
+    |   KW_FOR TK_IDENTIFIER KW_IN L_BRACKET expression COLON expression COLON expression R_BRACKET COLON statements KW_ENDFOR SEMICOLON
         { $$ = template("\nfor(%s = %s; %s<=%s; %s = %s + %s){\n\t%s\n}\n", $2, $5, $2, $9, $2, $2, $7, $12); }
 
 while_loop:
@@ -339,8 +307,8 @@ if_block:
 ;
 
 return_statement:
-        KW_RETURN SEMICOLON               { $$ = template("\t\nreturn;\n"); }
-    |   KW_RETURN expression SEMICOLON    { $$ = template("\t\nreturn %s;\n",$2 ); }
+        KW_RETURN SEMICOLON               { $$ = template("\n\treturn;\n"); }
+    |   KW_RETURN expression SEMICOLON    { $$ = template("\n\treturn %s;\n",$2 ); }
 ;
 
 
@@ -385,9 +353,9 @@ expression:
 
 
 syscall:
-        FUNC_RSTR L_PARENTHESIS R_PARENTHESIS SEMICOLON                           { $$ = template("readStr();"); }
-    |   FUNC_RSCAL L_PARENTHESIS R_PARENTHESIS SEMICOLON                          { $$ = template("readScalar();"); }
-    |   FUNC_RINT L_PARENTHESIS R_PARENTHESIS SEMICOLON                           { $$ = template("readInteger();"); }
+        var_strings OP_ASSIGN FUNC_RSTR L_PARENTHESIS R_PARENTHESIS SEMICOLON     { $$ = template("%s = readStr();", $1); }
+    |   var_strings OP_ASSIGN FUNC_RSCAL L_PARENTHESIS R_PARENTHESIS SEMICOLON    { $$ = template("%s = readScalar();", $1); }
+    |   var_strings OP_ASSIGN FUNC_RINT L_PARENTHESIS R_PARENTHESIS SEMICOLON     { $$ = template("%s = readInteger();", $1); }
     |   FUNC_WSTR L_PARENTHESIS syscall_write_content R_PARENTHESIS SEMICOLON     { $$ = template("writeStr(%s);", $3); }
     |   FUNC_WSCAL L_PARENTHESIS syscall_write_content R_PARENTHESIS SEMICOLON    { $$ = template("writeScalar(%s);", $3); }
     |   FUNC_WINT L_PARENTHESIS syscall_write_content R_PARENTHESIS SEMICOLON     { $$ = template("writeInteger(%s);", $3); }
@@ -404,8 +372,6 @@ syscall_write_content:
 
 %%
 int main() {
-    if ( yyparse() == 0 )
-        printf("Accepted!\n");
-    else
-        printf("Rejected!\n");
+    if ( yyparse() != 0 )
+        fprintf(stderr,"Rejected! Syntax errors exist, please revise the errors above ^ ! \n");
 }

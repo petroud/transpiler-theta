@@ -59,4 +59,5 @@ int yyerror_count = 0;
 
 const char *c_prologue =
     "#include \"thetalib.h\"\n"
+    "#include <math.h>\n"
     "\n";

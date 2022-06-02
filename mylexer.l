@@ -90,8 +90,8 @@ STRING      \"[^\n]*\"
 [ \r\t]+             /* Empty column or set of columns */
 "--"[^\n]*           /* Line Comment, ignoring */
 
-.                    { printf("Unrecognized Token '%s' in line %d\n", yytext, line_num); exit(1);}
 \n                   { ++line_num; }
 
 <<EOF>>              return EOF;
+.                    { printf("Unrecognized Token '%s' in line %d\n", yytext, line_num); exit(1);}
 %%
