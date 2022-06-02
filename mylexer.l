@@ -46,7 +46,7 @@ STRING      \"[^\n]*\"
 "["             { printf("Token L_BRACKET: %s\n", yytext); return L_BRACKET; }
 "]"             { printf("Token R_BRACKET: %s\n", yytext); return R_BRACKET; }
 ":"             { printf("Token COLON: %s\n", yytext); return COLON; }
-"."             { printf("Token DOT: %s\n", yytext); return DOT; }
+
 
 "+"             { printf("Token OP_PLUS: %s\n", yytext); return OP_PLUS; }
 "-"             { printf("Token OP_MINUS: %s\n", yytext); return OP_MINUS; }
@@ -81,10 +81,10 @@ STRING      \"[^\n]*\"
 "write"         { printf("Token FUNC_WRT: %s\n", yytext); return FUNC_WRT; }
 
 
-{IDENTIFIER}         { printf("Token IDENTIFIER: %s\n", yytext); return TK_IDENTIFIER; }
-{NUMBER}             { printf("Token CONST_INT: %s\n", yytext); return TK_INTEGER; }
-{REAL}               { printf("Token CONST_REAL: %s\n", yytext); return TK_REAL; }
-{STRING}             { printf("Token CONST_STRING: %s\n", yytext); return TK_STRING; }
+{IDENTIFIER}         { printf("Token IDENTIFIER: %s\n", yytext); yylval.str = strdup(yytext); return TK_IDENTIFIER; }
+{NUMBER}             { printf("Token CONST_INT: %s\n", yytext); yylval.str = strdup(yytext); return TK_INTEGER;  }
+{REAL}               { printf("Token CONST_REAL: %s\n", yytext);  yylval.str = strdup(yytext); return TK_REAL; }
+{STRING}             { printf("Token CONST_STRING: %s\n", yytext);  yylval.str = strdup(yytext); return TK_STRING; }
 
 
 [ \r\t]+             /* Empty column or set of columns */

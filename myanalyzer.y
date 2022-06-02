@@ -117,7 +117,7 @@
 %type <str> data_format
 %type <str> syscall
 %type <str> syscall_write_content
-%type <str> return
+%type <str> return_statement
 %type <str> function_call
 %type <str> function_call_chain
 
@@ -131,7 +131,6 @@
 // Var types
 %type <str> var_decl
 %type <str> var_strings
-
 
 // Loops
 %type <str> for_loop
@@ -160,7 +159,7 @@ input:
             fputs("#include \"thetalib.h\"\n",fp);
             fputs("#include <math.h>\n",fp);
             fputs("typedef char * str;",fp);
-            fputs("%s\n",$1,fp);
+            fprintf($1,fp);
             fclose(fp);
         }
     }
@@ -184,12 +183,12 @@ global_constant_decl:
 
 global_function_decl:
         global_function_decl fun_definition     { $$ = template("%s\n\n%s", $1, $2 ); }
-    |   fun_definition                          { $$ = template("%s\n", $1)}
+    |   fun_definition                          { $$ = template("%s\n", $1); }
 ;
 
 global_variable_decl:
         global_variable_decl var_decl           { $$ = template("%s\n%s", $1, $2); }
-    |   var_decl                                { $$ = template("%s\n%s", $1, $2); }
+    |   var_decl                                { $$ = template("%s\n%s", $1); }
 ;
 
 program_main:
@@ -200,7 +199,7 @@ program_main:
 
 function_body:
         local_declarations statements   { $$ = template("%s\n%s", $1, $2); }
-    |   statements                      { $$ = template("%s\n", $1, $2); }
+    |   statements                      { $$ = template("%s\n", $1); }
 ;
 
 var_const_decl:
@@ -209,7 +208,7 @@ var_const_decl:
 
 
 local_declarations:
-        local_declarations var_const_decl       { $$ = template("%s\n%s", $1, $2; )}
+        local_declarations var_const_decl       { $$ = template("%s\n%s", $1, $2); }
     |   var_const_decl                          { $$ = $1; }
 ;
 
@@ -218,7 +217,7 @@ local_declarations:
 
 //----------------- Constant declarations ------------------
 const_declaration: 
-    KW_CONST const_assign COLON data_type SEMICOLON  { $$ = template("const %s %s;\n". $4, $2); }
+    KW_CONST const_assign COLON data_type SEMICOLON  { $$ = template("const %s %s;\n", $4, $2); }
 ;
 
 
@@ -243,8 +242,6 @@ var_strings:
         TK_IDENTIFIER                                               { $$ = template("%s", $1); }
     |   TK_IDENTIFIER L_BRACKET expression R_BRACKET                { $$ = template("%s[%s]", $1, $3); }
 ;
-
-
 
 data_type:
         KW_INTEGER  { $$ = template("int"); }
@@ -302,8 +299,8 @@ statement:
     |   for_loop SEMICOLON              { $$ = template("\t%s\n", $1); }
     |   while_loop SEMICOLON            { $$ = template("\t%s\n", $1); }
     |   if_block SEMICOLON              { $$ = template("\t%s\n", $1); }
-    |   return                          { $$ = template("\t%s\n", $1); }
-    |   syscall                         { $$ = template("\t%s\n". $1); }
+    |   return_statement                { $$ = template("\t%s\n", $1); }
+    |   syscall                         { $$ = template("\t%s\n", $1); }
 ;
 
 
@@ -324,18 +321,26 @@ function_call_chain:
 
 
 for_loop:
-    KW_FOR TK_IDENTIFIER KW_IN L_BRACKET
-;
+        KW_FOR TK_IDENTIFIER KW_IN L_BRACKET expression COLON expression R_BRACKET COLON statements KW_ENDIF
+        { $$ = template("\nfor(%s = %s; %s<=%s; %s++){\n\t%s\n}\n", $2, $5, $2, $7, $2, $10); }
+    |   KW_FOR TK_IDENTIFIER KW_IN L_BRACKET expression COLON expression COLON expression R_BRACKET COLON statements KW_ENDIF
+        { $$ = template("\nfor(%s = %s; %s<=%s; %s = %s + %s){\n\t%s\n}\n", $2, $5, $2, $9, $2, $2, $7, $12); }
 
 while_loop:
+        KW_WHILE L_PARENTHESIS expression R_PARENTHESIS COLON statements KW_ENDWHILE SEMICOLON
+        { $$ = template("\nwhile(%s){\n\t%s\n}\n", $3, $6);}
 ;
 
 if_block:
+        KW_IF L_PARENTHESIS expression R_PARENTHESIS COLON statements KW_ENDIF SEMICOLON
+        { $$ = template("\nif(%s){\n\t%s\n}\n", $3, $6);}
+    |   KW_IF L_PARENTHESIS expression R_PARENTHESIS COLON statements KW_ELSE COLON statements KW_ENDIF SEMICOLON
+        { $$ = template("\nif(%s){\n\t%s\n}\nelse{\n\t%s\n}", $3, $6, $9); }
 ;
 
-return:
-    KW_RETURN SEMICOLON               { $$ = template("\t\nreturn;\n"); }
-    KW_RETURN expression SEMICOLON    { $$ = template("\t\nreturn %s;\n",$2 ); }
+return_statement:
+        KW_RETURN SEMICOLON               { $$ = template("\t\nreturn;\n"); }
+    |   KW_RETURN expression SEMICOLON    { $$ = template("\t\nreturn %s;\n",$2 ); }
 ;
 
 
@@ -380,14 +385,15 @@ expression:
 
 
 syscall:
-    FUNC_RSTR L_PARENTHESIS R_PARENTHESIS SEMICOLON                           { $$ = template("readStr();"); }
-    FUNC_RSCAL L_PARENTHESIS R_PARENTHESIS SEMICOLON                          { $$ = template("readScalar();"); }
-    FUNC_RINT L_PARENTHESIS R_PARENTHESIS SEMICOLON                           { $$ = template("readInteger();"); }
-    FUNC_WSTR L_PARENTHESIS syscall_write_content R_PARENTHESIS SEMICOLON     { $$ = template("writeStr(%s);", $3); }
-    FUNC_WSCAL L_PARENTHESIS syscall_write_content R_PARENTHESIS SEMICOLON    { $$ = template("writeScalar(%s);", $3); }
-    FUNC_WINT L_PARENTHESIS syscall_write_content R_PARENTHESIS SEMICOLON     { $$ = template("writeInteger(%s);", $3); }
-    FUNC_WRT L_PARENTHESIS syscall_write_content R_PARENTHESIS SEMICOLON      { $$ = template("write(%s);", $3); }
+        FUNC_RSTR L_PARENTHESIS R_PARENTHESIS SEMICOLON                           { $$ = template("readStr();"); }
+    |   FUNC_RSCAL L_PARENTHESIS R_PARENTHESIS SEMICOLON                          { $$ = template("readScalar();"); }
+    |   FUNC_RINT L_PARENTHESIS R_PARENTHESIS SEMICOLON                           { $$ = template("readInteger();"); }
+    |   FUNC_WSTR L_PARENTHESIS syscall_write_content R_PARENTHESIS SEMICOLON     { $$ = template("writeStr(%s);", $3); }
+    |   FUNC_WSCAL L_PARENTHESIS syscall_write_content R_PARENTHESIS SEMICOLON    { $$ = template("writeScalar(%s);", $3); }
+    |   FUNC_WINT L_PARENTHESIS syscall_write_content R_PARENTHESIS SEMICOLON     { $$ = template("writeInteger(%s);", $3); }
+    |   FUNC_WRT L_PARENTHESIS syscall_write_content R_PARENTHESIS SEMICOLON      { $$ = template("write(%s);", $3); }
 ;
+
 
 syscall_write_content:
         TK_IDENTIFIER       { $$ = $1; }
