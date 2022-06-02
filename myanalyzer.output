@@ -1,0 +1,211 @@
+Nonterminals useless in grammar
+
+    data_type
+    fun_definition
+    fun_parameters
+    fun_parameter_member
+    fun_body
+    syscall
+
+
+Terminals unused in grammar
+
+    KW_INTEGER
+    KW_REAL
+    KW_STR
+    KW_BOOLEAN
+    KW_TRUE
+    KW_FALSE
+    KW_CONST
+    KW_IF
+    KW_ELSE
+    KW_ENDIF
+    KW_FOR
+    KW_IN
+    KW_ENDFOR
+    KW_WHILE
+    KW_ENDWHILE
+    KW_BREAK
+    KW_CONTINUE
+    KW_NOT
+    KW_AND
+    KW_OR
+    KW_DEF
+    KW_ENDDEF
+    KW_BEGIN
+    KW_RETURN
+    KW_COMP
+    KW_ENDCOMP
+    SEMICOLON
+    L_PARENTHESIS
+    R_PARENTHESIS
+    COMMA
+    L_BRACKET
+    R_BRACKET
+    COLON
+    DOT
+    OP_PLUS
+    OP_MINUS
+    OP_MUL
+    OP_DIV
+    OP_MOD
+    OP_POW
+    OP_EQ
+    OP_NEQ
+    OP_LESS
+    OP_LESSEQ
+    OP_GREATER
+    OP_GREATEREQ
+    OP_AND
+    OP_OR
+    OP_NOT
+    OP_ASSIGN
+    OP_ASSIGN_INCR
+    OP_ASSIGN_DEC
+    OP_ASSIGN_MUL
+    OP_ASSIGN_DIV
+    OP_ASSIGN_MOD
+    FUNC_RSTR
+    FUNC_RINT
+    FUNC_RSCAL
+    FUNC_WSTR
+    FUNC_WINT
+    FUNC_WSCAL
+    FUNC_WRT
+    TK_IDENTIFIER
+    TK_INTEGER
+    TK_REAL
+    TK_STRING
+
+
+Rules useless in grammar
+
+    2 data_type: KW_INTEGER
+    3          | KW_STR
+    4          | KW_REAL
+    5          | KW_BOOLEAN
+
+    6 fun_definition: KW_DEF TK_IDENTIFIER L_PARENTHESIS fun_parameters R_PARENTHESIS OP_MINUS OP_GREATER data_type COLON fun_body KW_ENDDEF
+    7               | KW_DEF TK_IDENTIFIER L_PARENTHESIS fun_parameters R_PARENTHESIS COLON fun_body KW_ENDDEF
+
+    8 fun_parameters: fun_parameter_member COMMA fun_parameters
+    9               | fun_parameter_member
+   10               | %empty
+
+   11 fun_parameter_member: TK_IDENTIFIER COLON data_type
+   12                     | TK_IDENTIFIER L_BRACKET R_BRACKET COLON data_type
+
+   13 fun_body: TK_IDENTIFIER COLON data_type
+   14         | %empty
+
+
+Grammar
+
+    0 $accept: input $end
+
+    1 input: %empty
+
+
+Terminals, with rules where they appear
+
+    $end (0) 0
+    error (256)
+    KW_INTEGER (258)
+    KW_REAL (259)
+    KW_STR (260)
+    KW_BOOLEAN (261)
+    KW_TRUE (262)
+    KW_FALSE (263)
+    KW_CONST (264)
+    KW_IF (265)
+    KW_ELSE (266)
+    KW_ENDIF (267)
+    KW_FOR (268)
+    KW_IN (269)
+    KW_ENDFOR (270)
+    KW_WHILE (271)
+    KW_ENDWHILE (272)
+    KW_BREAK (273)
+    KW_CONTINUE (274)
+    KW_NOT (275)
+    KW_AND (276)
+    KW_OR (277)
+    KW_DEF (278)
+    KW_ENDDEF (279)
+    KW_BEGIN (280)
+    KW_RETURN (281)
+    KW_COMP (282)
+    KW_ENDCOMP (283)
+    SEMICOLON (284)
+    L_PARENTHESIS (285)
+    R_PARENTHESIS (286)
+    COMMA (287)
+    L_BRACKET (288)
+    R_BRACKET (289)
+    COLON (290)
+    DOT (291)
+    OP_PLUS (292)
+    OP_MINUS (293)
+    OP_MUL (294)
+    OP_DIV (295)
+    OP_MOD (296)
+    OP_POW (297)
+    OP_EQ (298)
+    OP_NEQ (299)
+    OP_LESS (300)
+    OP_LESSEQ (301)
+    OP_GREATER (302)
+    OP_GREATEREQ (303)
+    OP_AND (304)
+    OP_OR (305)
+    OP_NOT (306)
+    OP_ASSIGN (307)
+    OP_ASSIGN_INCR (308)
+    OP_ASSIGN_DEC (309)
+    OP_ASSIGN_MUL (310)
+    OP_ASSIGN_DIV (311)
+    OP_ASSIGN_MOD (312)
+    FUNC_RSTR (313)
+    FUNC_RINT (314)
+    FUNC_RSCAL (315)
+    FUNC_WSTR (316)
+    FUNC_WINT (317)
+    FUNC_WSCAL (318)
+    FUNC_WRT (319)
+    TK_IDENTIFIER <str> (320)
+    TK_INTEGER <str> (321)
+    TK_REAL <str> (322)
+    TK_STRING <str> (323)
+
+
+Nonterminals, with rules where they appear
+
+    $accept (69)
+        on left: 0
+    input (70)
+        on left: 1
+        on right: 0
+
+
+State 0
+
+    0 $accept: . input $end
+    1 input: . %empty
+
+    $default  reduce using rule 1 (input)
+
+    input  go to state 1
+
+
+State 1
+
+    0 $accept: input . $end
+
+    $end  shift, and go to state 2
+
+
+State 2
+
+    0 $accept: input $end .
+
+    $default  accept

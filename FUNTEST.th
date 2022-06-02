@@ -1,0 +1,3 @@
+def dimitris(prompt: str, msg: str):
+    
+enddef;
