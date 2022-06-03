@@ -1175,7 +1175,7 @@ return EOF;
 case 65:
 YY_RULE_SETUP
 #line 97 "mylexer.l"
-{ printf("Unrecognized Token '%s' in line %d\n", yytext, line_num); exit(1);}
+{printf("Unrecognized Token '%s' in line %d\n", yytext, line_num); exit(1);}
 	YY_BREAK
 case 66:
 YY_RULE_SETUP
@@ -2186,4 +2186,5 @@ void yyfree (void * ptr )
 #define YYTABLES_NAME "yytables"
 
 #line 98 "mylexer.l"
+
 

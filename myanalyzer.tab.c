@@ -103,7 +103,7 @@
 # undef YYERROR_VERBOSE
 # define YYERROR_VERBOSE 1
 #else
-# define YYERROR_VERBOSE 1
+# define YYERROR_VERBOSE 0
 #endif
 
 /* Use api.header.include to #include this header
@@ -191,7 +191,7 @@ extern int yydebug;
 #if ! defined YYSTYPE && ! defined YYSTYPE_IS_DECLARED
 union YYSTYPE
 {
-#line 15 "myanalyzer.y"
+#line 12 "myanalyzer.y"
 
     char* str;
 
@@ -576,21 +576,21 @@ static const yytype_int8 yytranslate[] =
   /* YYRLINE[YYN] -- Source line where rule number YYN was defined.  */
 static const yytype_int16 yyrline[] =
 {
-       0,   148,   148,   162,   163,   164,   165,   169,   170,   175,
-     176,   180,   181,   185,   186,   194,   199,   200,   209,   213,
-     214,   217,   218,   222,   223,   224,   225,   226,   233,   236,
-     242,   243,   244,   249,   250,   258,   259,   263,   264,   265,
-     266,   267,   268,   269,   270,   271,   277,   281,   285,   286,
-     287,   292,   294,   298,   303,   305,   310,   311,   316,   317,
-     321,   322,   323,   324,   325,   326,   327,   328,   329,   330,
-     331,   332,   333,   334,   335,   336,   337,   338,   339,   340,
-     341,   342,   343,   344,   345,   346,   347,   348,   349,   350,
-     351,   356,   357,   358,   359,   360,   361,   362,   367,   368,
-     369
+       0,   145,   145,   159,   160,   161,   162,   166,   167,   172,
+     173,   177,   178,   182,   183,   191,   196,   197,   206,   210,
+     211,   214,   215,   219,   220,   221,   222,   223,   230,   233,
+     239,   240,   241,   246,   247,   255,   256,   260,   261,   262,
+     263,   264,   265,   266,   267,   268,   274,   278,   282,   283,
+     284,   289,   291,   295,   300,   302,   307,   308,   313,   314,
+     318,   319,   320,   321,   322,   323,   324,   325,   326,   327,
+     328,   329,   330,   331,   332,   333,   334,   335,   336,   337,
+     338,   339,   340,   341,   342,   343,   344,   345,   346,   347,
+     348,   353,   354,   355,   356,   357,   358,   359,   364,   365,
+     366
 };
 #endif
 
-#if YYDEBUG || YYERROR_VERBOSE || 1
+#if YYDEBUG || YYERROR_VERBOSE || 0
 /* YYTNAME[SYMBOL-NUM] -- String name of the symbol SYMBOL-NUM.
    First, the terminals, then, starting at YYNTOKENS, nonterminals.  */
 static const char *const yytname[] =
@@ -1674,7 +1674,7 @@ yyreduce:
   switch (yyn)
     {
   case 2:
-#line 149 "myanalyzer.y"
+#line 146 "myanalyzer.y"
     {
         if(yyerror_count == 0){
             puts(c_prologue);
@@ -1685,583 +1685,583 @@ yyreduce:
     break;
 
   case 3:
-#line 162 "myanalyzer.y"
+#line 159 "myanalyzer.y"
                      { (yyval.str) = template("%s\n", (yyvsp[0].str)); }
 #line 1691 "myanalyzer.tab.c"
     break;
 
   case 4:
-#line 163 "myanalyzer.y"
+#line 160 "myanalyzer.y"
                                         { (yyval.str) = template("%s\n\n%s", (yyvsp[-1].str), (yyvsp[0].str)); }
 #line 1697 "myanalyzer.tab.c"
     break;
 
   case 5:
-#line 164 "myanalyzer.y"
+#line 161 "myanalyzer.y"
                                { (yyval.str) = template("%s\n\n%s", (yyvsp[-1].str), (yyvsp[0].str)); }
 #line 1703 "myanalyzer.tab.c"
     break;
 
   case 6:
-#line 165 "myanalyzer.y"
+#line 162 "myanalyzer.y"
                                      { (yyval.str) = template("%s\n\n%s", (yyvsp[-1].str), (yyvsp[0].str)); }
 #line 1709 "myanalyzer.tab.c"
     break;
 
   case 7:
-#line 169 "myanalyzer.y"
+#line 166 "myanalyzer.y"
                                                                             { (yyval.str) = template("void main(){}"); }
 #line 1715 "myanalyzer.tab.c"
     break;
 
   case 8:
-#line 170 "myanalyzer.y"
+#line 167 "myanalyzer.y"
                                                                                             { (yyval.str) = template("void main(){\n%s\n}",(yyvsp[-2].str)); }
 #line 1721 "myanalyzer.tab.c"
     break;
 
   case 9:
-#line 175 "myanalyzer.y"
+#line 172 "myanalyzer.y"
                                         { (yyval.str) = template("\t%s\n%s", (yyvsp[-1].str), (yyvsp[0].str)); }
 #line 1727 "myanalyzer.tab.c"
     break;
 
   case 10:
-#line 176 "myanalyzer.y"
+#line 173 "myanalyzer.y"
                                         { (yyval.str) = template("%s\n", (yyvsp[0].str)); }
 #line 1733 "myanalyzer.tab.c"
     break;
 
   case 11:
-#line 180 "myanalyzer.y"
+#line 177 "myanalyzer.y"
                             { (yyval.str) = (yyvsp[0].str); }
 #line 1739 "myanalyzer.tab.c"
     break;
 
   case 12:
-#line 181 "myanalyzer.y"
+#line 178 "myanalyzer.y"
                             { (yyval.str) = (yyvsp[0].str); }
 #line 1745 "myanalyzer.tab.c"
     break;
 
   case 13:
-#line 185 "myanalyzer.y"
+#line 182 "myanalyzer.y"
                                                 { (yyval.str) = template("%s\n%s", (yyvsp[-1].str), (yyvsp[0].str)); }
 #line 1751 "myanalyzer.tab.c"
     break;
 
   case 14:
-#line 186 "myanalyzer.y"
+#line 183 "myanalyzer.y"
                                                 { (yyval.str) = (yyvsp[0].str); }
 #line 1757 "myanalyzer.tab.c"
     break;
 
   case 15:
-#line 194 "myanalyzer.y"
+#line 191 "myanalyzer.y"
                                                      { (yyval.str) = template("const %s %s;\n", (yyvsp[-1].str), (yyvsp[-3].str)); }
 #line 1763 "myanalyzer.tab.c"
     break;
 
   case 16:
-#line 199 "myanalyzer.y"
+#line 196 "myanalyzer.y"
                                                 { (yyval.str) = template("%s = %s", (yyvsp[-2].str), (yyvsp[0].str)); }
 #line 1769 "myanalyzer.tab.c"
     break;
 
   case 17:
-#line 200 "myanalyzer.y"
+#line 197 "myanalyzer.y"
                                                 { (yyval.str) = template("%s = %s", (yyvsp[-2].str), (yyvsp[0].str)); }
 #line 1775 "myanalyzer.tab.c"
     break;
 
   case 18:
-#line 209 "myanalyzer.y"
+#line 206 "myanalyzer.y"
                                               { (yyval.str) = template("%s %s;\n", (yyvsp[-1].str), (yyvsp[-3].str)); }
 #line 1781 "myanalyzer.tab.c"
     break;
 
   case 19:
-#line 213 "myanalyzer.y"
+#line 210 "myanalyzer.y"
                                             { (yyval.str) = (yyvsp[0].str); }
 #line 1787 "myanalyzer.tab.c"
     break;
 
   case 20:
-#line 214 "myanalyzer.y"
+#line 211 "myanalyzer.y"
                                             { (yyval.str) = template("%s, %s", (yyvsp[-2].str), (yyvsp[0].str)); }
 #line 1793 "myanalyzer.tab.c"
     break;
 
   case 21:
-#line 217 "myanalyzer.y"
+#line 214 "myanalyzer.y"
                                                                     { (yyval.str) = template("%s", (yyvsp[0].str)); }
 #line 1799 "myanalyzer.tab.c"
     break;
 
   case 22:
-#line 218 "myanalyzer.y"
+#line 215 "myanalyzer.y"
                                                                     { (yyval.str) = template("%s[%s]", (yyvsp[-3].str), (yyvsp[-1].str)); }
 #line 1805 "myanalyzer.tab.c"
     break;
 
   case 23:
-#line 222 "myanalyzer.y"
+#line 219 "myanalyzer.y"
                     { (yyval.str) = template("int"); }
 #line 1811 "myanalyzer.tab.c"
     break;
 
   case 24:
-#line 223 "myanalyzer.y"
+#line 220 "myanalyzer.y"
                     { (yyval.str) = template("str"); }
 #line 1817 "myanalyzer.tab.c"
     break;
 
   case 25:
-#line 224 "myanalyzer.y"
+#line 221 "myanalyzer.y"
                     { (yyval.str) = template("double"); }
 #line 1823 "myanalyzer.tab.c"
     break;
 
   case 26:
-#line 225 "myanalyzer.y"
+#line 222 "myanalyzer.y"
                     { (yyval.str) = template("bool"); }
 #line 1829 "myanalyzer.tab.c"
     break;
 
   case 27:
-#line 226 "myanalyzer.y"
+#line 223 "myanalyzer.y"
                     { (yyval.str) = template("void"); }
 #line 1835 "myanalyzer.tab.c"
     break;
 
   case 28:
-#line 234 "myanalyzer.y"
+#line 231 "myanalyzer.y"
         { (yyval.str) = template("%s %s(%s) {\n%s\n}\n", (yyvsp[-4].str), (yyvsp[-10].str), (yyvsp[-8].str), (yyvsp[-2].str));}
 #line 1841 "myanalyzer.tab.c"
     break;
 
   case 29:
-#line 237 "myanalyzer.y"
+#line 234 "myanalyzer.y"
         { (yyval.str) = template("void %s(%s) {\n%s\n}\n", (yyvsp[-7].str), (yyvsp[-5].str), (yyvsp[-2].str));}
 #line 1847 "myanalyzer.tab.c"
     break;
 
   case 30:
-#line 242 "myanalyzer.y"
+#line 239 "myanalyzer.y"
                                                     { (yyval.str) = template("%s, %s", (yyvsp[-2].str), (yyvsp[0].str)); }
 #line 1853 "myanalyzer.tab.c"
     break;
 
   case 31:
-#line 243 "myanalyzer.y"
+#line 240 "myanalyzer.y"
                                                     { (yyval.str) = (yyvsp[0].str); }
 #line 1859 "myanalyzer.tab.c"
     break;
 
   case 32:
-#line 244 "myanalyzer.y"
+#line 241 "myanalyzer.y"
                                                     { (yyval.str) = ""; }
 #line 1865 "myanalyzer.tab.c"
     break;
 
   case 33:
-#line 249 "myanalyzer.y"
+#line 246 "myanalyzer.y"
                                                             { (yyval.str) = template("%s %s", (yyvsp[0].str), (yyvsp[-2].str)); }
 #line 1871 "myanalyzer.tab.c"
     break;
 
   case 34:
-#line 250 "myanalyzer.y"
+#line 247 "myanalyzer.y"
                                                             { (yyval.str) = template("%s %s[]", (yyvsp[0].str), (yyvsp[-4].str)); }
 #line 1877 "myanalyzer.tab.c"
     break;
 
   case 36:
-#line 259 "myanalyzer.y"
+#line 256 "myanalyzer.y"
                                 { (yyval.str) = template("\n\t%s\n\t%s", (yyvsp[-1].str), (yyvsp[0].str)); }
 #line 1883 "myanalyzer.tab.c"
     break;
 
   case 37:
-#line 263 "myanalyzer.y"
+#line 260 "myanalyzer.y"
                                         { (yyval.str) = template("%s;", (yyvsp[-1].str)); }
 #line 1889 "myanalyzer.tab.c"
     break;
 
   case 38:
-#line 264 "myanalyzer.y"
+#line 261 "myanalyzer.y"
                                         { (yyval.str) = template("%s;", (yyvsp[-1].str)); }
 #line 1895 "myanalyzer.tab.c"
     break;
 
   case 39:
-#line 265 "myanalyzer.y"
+#line 262 "myanalyzer.y"
                                         { (yyval.str) = template("\tcontinue;\n"); }
 #line 1901 "myanalyzer.tab.c"
     break;
 
   case 40:
-#line 266 "myanalyzer.y"
+#line 263 "myanalyzer.y"
                                         { (yyval.str) = template("\tbreak;\n"); }
 #line 1907 "myanalyzer.tab.c"
     break;
 
   case 41:
-#line 267 "myanalyzer.y"
+#line 264 "myanalyzer.y"
                                         { (yyval.str) = template("\t%s\n", (yyvsp[0].str)); }
 #line 1913 "myanalyzer.tab.c"
     break;
 
   case 42:
-#line 268 "myanalyzer.y"
+#line 265 "myanalyzer.y"
                                         { (yyval.str) = template("\t%s\n", (yyvsp[0].str)); }
 #line 1919 "myanalyzer.tab.c"
     break;
 
   case 43:
-#line 269 "myanalyzer.y"
+#line 266 "myanalyzer.y"
                                         { (yyval.str) = template("\t%s\n", (yyvsp[0].str)); }
 #line 1925 "myanalyzer.tab.c"
     break;
 
   case 44:
-#line 270 "myanalyzer.y"
+#line 267 "myanalyzer.y"
                                         { (yyval.str) = template("\t%s\n", (yyvsp[0].str)); }
 #line 1931 "myanalyzer.tab.c"
     break;
 
   case 45:
-#line 271 "myanalyzer.y"
+#line 268 "myanalyzer.y"
                                         { (yyval.str) = template("%s\n", (yyvsp[0].str)); }
 #line 1937 "myanalyzer.tab.c"
     break;
 
   case 46:
-#line 277 "myanalyzer.y"
+#line 274 "myanalyzer.y"
                                        { (yyval.str) = template("%s = %s", (yyvsp[-2].str), (yyvsp[0].str)); }
 #line 1943 "myanalyzer.tab.c"
     break;
 
   case 47:
-#line 281 "myanalyzer.y"
+#line 278 "myanalyzer.y"
                                                                      { (yyval.str) = template("%s(%s)", (yyvsp[-3].str), (yyvsp[-1].str)); }
 #line 1949 "myanalyzer.tab.c"
     break;
 
   case 48:
-#line 285 "myanalyzer.y"
+#line 282 "myanalyzer.y"
                                                 { (yyval.str) = template(""); }
 #line 1955 "myanalyzer.tab.c"
     break;
 
   case 49:
-#line 286 "myanalyzer.y"
+#line 283 "myanalyzer.y"
                                                 { (yyval.str) = template("%s, %s", (yyvsp[-2].str), (yyvsp[0].str)); }
 #line 1961 "myanalyzer.tab.c"
     break;
 
   case 50:
-#line 287 "myanalyzer.y"
+#line 284 "myanalyzer.y"
                                                 { (yyval.str) = template("%s", (yyvsp[0].str)); }
 #line 1967 "myanalyzer.tab.c"
     break;
 
   case 51:
-#line 293 "myanalyzer.y"
+#line 290 "myanalyzer.y"
         { (yyval.str) = template("\n\tfor(int %s = %s; %s<%s; %s++){\n\n\t%s\n\t}\n", (yyvsp[-10].str), (yyvsp[-7].str), (yyvsp[-10].str), (yyvsp[-5].str), (yyvsp[-10].str), (yyvsp[-2].str)); }
 #line 1973 "myanalyzer.tab.c"
     break;
 
   case 52:
-#line 295 "myanalyzer.y"
+#line 292 "myanalyzer.y"
         { (yyval.str) = template("\n\tfor(int %s = %s; %s<%s; %s = %s + %s){\n\n\t%s\n\t}\n", (yyvsp[-12].str), (yyvsp[-9].str), (yyvsp[-12].str), (yyvsp[-5].str), (yyvsp[-12].str), (yyvsp[-12].str), (yyvsp[-7].str), (yyvsp[-2].str)); }
 #line 1979 "myanalyzer.tab.c"
     break;
 
   case 53:
-#line 299 "myanalyzer.y"
+#line 296 "myanalyzer.y"
         { (yyval.str) = template("\n\twhile(%s){\n\t\t%s\n\t}", (yyvsp[-5].str), (yyvsp[-2].str));}
 #line 1985 "myanalyzer.tab.c"
     break;
 
   case 54:
-#line 304 "myanalyzer.y"
+#line 301 "myanalyzer.y"
         { (yyval.str) = template("\n\tif(%s){\n\t%s\n\t}\n", (yyvsp[-5].str), (yyvsp[-2].str));}
 #line 1991 "myanalyzer.tab.c"
     break;
 
   case 55:
-#line 306 "myanalyzer.y"
+#line 303 "myanalyzer.y"
         { (yyval.str) = template("\n\tif(%s){\n\t%s\n\t}\nelse{\n\t%s\t\n}", (yyvsp[-8].str), (yyvsp[-5].str), (yyvsp[-2].str)); }
 #line 1997 "myanalyzer.tab.c"
     break;
 
   case 56:
-#line 310 "myanalyzer.y"
+#line 307 "myanalyzer.y"
                                           { (yyval.str) = template("\n\treturn;\n"); }
 #line 2003 "myanalyzer.tab.c"
     break;
 
   case 57:
-#line 311 "myanalyzer.y"
+#line 308 "myanalyzer.y"
                                           { (yyval.str) = template("\n\treturn %s;\n",(yyvsp[-1].str) ); }
 #line 2009 "myanalyzer.tab.c"
     break;
 
   case 58:
-#line 316 "myanalyzer.y"
+#line 313 "myanalyzer.y"
                                                         { (yyval.str) = template("%s[%s]", (yyvsp[-3].str), (yyvsp[-1].str)); }
 #line 2015 "myanalyzer.tab.c"
     break;
 
   case 59:
-#line 317 "myanalyzer.y"
+#line 314 "myanalyzer.y"
                                                         { (yyval.str) = template("*%s", (yyvsp[-2].str));}
 #line 2021 "myanalyzer.tab.c"
     break;
 
   case 60:
-#line 321 "myanalyzer.y"
+#line 318 "myanalyzer.y"
                                                      { (yyval.str) = template("-%s", (yyvsp[0].str)); }
 #line 2027 "myanalyzer.tab.c"
     break;
 
   case 61:
-#line 322 "myanalyzer.y"
+#line 319 "myanalyzer.y"
                                                      { (yyval.str) = template("+%s", (yyvsp[0].str)); }
 #line 2033 "myanalyzer.tab.c"
     break;
 
   case 62:
-#line 323 "myanalyzer.y"
+#line 320 "myanalyzer.y"
                                                      { (yyval.str) = template("(%s)", (yyvsp[-1].str)); }
 #line 2039 "myanalyzer.tab.c"
     break;
 
   case 63:
-#line 324 "myanalyzer.y"
+#line 321 "myanalyzer.y"
                                                      { (yyval.str) = template("%s + %s", (yyvsp[-2].str), (yyvsp[0].str)); }
 #line 2045 "myanalyzer.tab.c"
     break;
 
   case 64:
-#line 325 "myanalyzer.y"
+#line 322 "myanalyzer.y"
                                                      { (yyval.str) = template("%s - %s", (yyvsp[-2].str), (yyvsp[0].str)); }
 #line 2051 "myanalyzer.tab.c"
     break;
 
   case 65:
-#line 326 "myanalyzer.y"
+#line 323 "myanalyzer.y"
                                                      { (yyval.str) = template("%s * %s", (yyvsp[-2].str), (yyvsp[0].str)); }
 #line 2057 "myanalyzer.tab.c"
     break;
 
   case 66:
-#line 327 "myanalyzer.y"
+#line 324 "myanalyzer.y"
                                                      { (yyval.str) = template("%s / %s", (yyvsp[-2].str), (yyvsp[0].str)); }
 #line 2063 "myanalyzer.tab.c"
     break;
 
   case 67:
-#line 328 "myanalyzer.y"
+#line 325 "myanalyzer.y"
                                                      { (yyval.str) = template("%s %% %s", (yyvsp[-2].str), (yyvsp[0].str)); }
 #line 2069 "myanalyzer.tab.c"
     break;
 
   case 68:
-#line 329 "myanalyzer.y"
+#line 326 "myanalyzer.y"
                                                      { (yyval.str) = template("pow(%s,%s)", (yyvsp[-2].str), (yyvsp[0].str)); }
 #line 2075 "myanalyzer.tab.c"
     break;
 
   case 69:
-#line 330 "myanalyzer.y"
+#line 327 "myanalyzer.y"
                                                      { (yyval.str) = template("%s == %s", (yyvsp[-2].str), (yyvsp[0].str)); }
 #line 2081 "myanalyzer.tab.c"
     break;
 
   case 70:
-#line 331 "myanalyzer.y"
+#line 328 "myanalyzer.y"
                                                      { (yyval.str) = template("%s != %s", (yyvsp[-2].str), (yyvsp[0].str)); }
 #line 2087 "myanalyzer.tab.c"
     break;
 
   case 71:
-#line 332 "myanalyzer.y"
+#line 329 "myanalyzer.y"
                                                      { (yyval.str) = template("%s < %s", (yyvsp[-2].str), (yyvsp[0].str)); }
 #line 2093 "myanalyzer.tab.c"
     break;
 
   case 72:
-#line 333 "myanalyzer.y"
+#line 330 "myanalyzer.y"
                                                      { (yyval.str) = template("%s <= %s", (yyvsp[-2].str), (yyvsp[0].str)); }
 #line 2099 "myanalyzer.tab.c"
     break;
 
   case 73:
-#line 334 "myanalyzer.y"
+#line 331 "myanalyzer.y"
                                                      { (yyval.str) = template("%s > %s", (yyvsp[-2].str), (yyvsp[0].str)); }
 #line 2105 "myanalyzer.tab.c"
     break;
 
   case 74:
-#line 335 "myanalyzer.y"
+#line 332 "myanalyzer.y"
                                                      { (yyval.str) = template("%s >= %s", (yyvsp[-2].str), (yyvsp[0].str)); }
 #line 2111 "myanalyzer.tab.c"
     break;
 
   case 75:
-#line 336 "myanalyzer.y"
+#line 333 "myanalyzer.y"
                                                      { (yyval.str) = template("%s && %s", (yyvsp[-2].str), (yyvsp[0].str)); }
 #line 2117 "myanalyzer.tab.c"
     break;
 
   case 76:
-#line 337 "myanalyzer.y"
+#line 334 "myanalyzer.y"
                                                      { (yyval.str) = template("%s || %s", (yyvsp[-2].str), (yyvsp[0].str)); }
 #line 2123 "myanalyzer.tab.c"
     break;
 
   case 77:
-#line 338 "myanalyzer.y"
+#line 335 "myanalyzer.y"
                                                      { (yyval.str) = template("!%s", (yyvsp[0].str)); }
 #line 2129 "myanalyzer.tab.c"
     break;
 
   case 78:
-#line 339 "myanalyzer.y"
+#line 336 "myanalyzer.y"
                                                      { (yyval.str) = template("%s+=%s", (yyvsp[-2].str), (yyvsp[0].str)); }
 #line 2135 "myanalyzer.tab.c"
     break;
 
   case 79:
-#line 340 "myanalyzer.y"
+#line 337 "myanalyzer.y"
                                                      { (yyval.str) = template("%s-=%s", (yyvsp[-2].str), (yyvsp[0].str)); }
 #line 2141 "myanalyzer.tab.c"
     break;
 
   case 80:
-#line 341 "myanalyzer.y"
+#line 338 "myanalyzer.y"
                                                      { (yyval.str) = template("%s*=%s", (yyvsp[-2].str), (yyvsp[0].str)); }
 #line 2147 "myanalyzer.tab.c"
     break;
 
   case 81:
-#line 342 "myanalyzer.y"
+#line 339 "myanalyzer.y"
                                                      { (yyval.str) = template("%s/=%s", (yyvsp[-2].str), (yyvsp[0].str)); }
 #line 2153 "myanalyzer.tab.c"
     break;
 
   case 82:
-#line 343 "myanalyzer.y"
+#line 340 "myanalyzer.y"
                                                      { (yyval.str) = template("%s = %s %% %s", (yyvsp[-2].str), (yyvsp[-2].str), (yyvsp[0].str)); }
 #line 2159 "myanalyzer.tab.c"
     break;
 
   case 83:
-#line 344 "myanalyzer.y"
+#line 341 "myanalyzer.y"
                                     { (yyval.str) = (yyvsp[0].str); }
 #line 2165 "myanalyzer.tab.c"
     break;
 
   case 84:
-#line 345 "myanalyzer.y"
+#line 342 "myanalyzer.y"
                                     { (yyval.str) = (yyvsp[0].str); }
 #line 2171 "myanalyzer.tab.c"
     break;
 
   case 85:
-#line 346 "myanalyzer.y"
+#line 343 "myanalyzer.y"
                                     { (yyval.str) = (yyvsp[0].str); }
 #line 2177 "myanalyzer.tab.c"
     break;
 
   case 86:
-#line 347 "myanalyzer.y"
+#line 344 "myanalyzer.y"
                                     { (yyval.str) = (yyvsp[0].str); }
 #line 2183 "myanalyzer.tab.c"
     break;
 
   case 87:
-#line 348 "myanalyzer.y"
+#line 345 "myanalyzer.y"
                                     { (yyval.str) = "1"; }
 #line 2189 "myanalyzer.tab.c"
     break;
 
   case 88:
-#line 349 "myanalyzer.y"
+#line 346 "myanalyzer.y"
                                     { (yyval.str) = "0"; }
 #line 2195 "myanalyzer.tab.c"
     break;
 
   case 89:
-#line 350 "myanalyzer.y"
+#line 347 "myanalyzer.y"
                                     { (yyval.str) = (yyvsp[0].str); }
 #line 2201 "myanalyzer.tab.c"
     break;
 
   case 90:
-#line 351 "myanalyzer.y"
+#line 348 "myanalyzer.y"
                                     { (yyval.str) = (yyvsp[0].str);}
 #line 2207 "myanalyzer.tab.c"
     break;
 
   case 91:
-#line 356 "myanalyzer.y"
+#line 353 "myanalyzer.y"
                                                                                   { (yyval.str) = template("%s = readStr();", (yyvsp[-5].str)); }
 #line 2213 "myanalyzer.tab.c"
     break;
 
   case 92:
-#line 357 "myanalyzer.y"
+#line 354 "myanalyzer.y"
                                                                                   { (yyval.str) = template("%s = readScalar();", (yyvsp[-5].str)); }
 #line 2219 "myanalyzer.tab.c"
     break;
 
   case 93:
-#line 358 "myanalyzer.y"
+#line 355 "myanalyzer.y"
                                                                                   { (yyval.str) = template("%s = readInteger();", (yyvsp[-5].str)); }
 #line 2225 "myanalyzer.tab.c"
     break;
 
   case 94:
-#line 359 "myanalyzer.y"
+#line 356 "myanalyzer.y"
                                                                                   { (yyval.str) = template("writeStr(%s);", (yyvsp[-2].str)); }
 #line 2231 "myanalyzer.tab.c"
     break;
 
   case 95:
-#line 360 "myanalyzer.y"
+#line 357 "myanalyzer.y"
                                                                                   { (yyval.str) = template("writeScalar(%s);", (yyvsp[-2].str)); }
 #line 2237 "myanalyzer.tab.c"
     break;
 
   case 96:
-#line 361 "myanalyzer.y"
+#line 358 "myanalyzer.y"
                                                                                   { (yyval.str) = template("writeInteger(%s);", (yyvsp[-2].str)); }
 #line 2243 "myanalyzer.tab.c"
     break;
 
   case 97:
-#line 362 "myanalyzer.y"
+#line 359 "myanalyzer.y"
                                                                                   { (yyval.str) = template("write(%s);", (yyvsp[-2].str)); }
 #line 2249 "myanalyzer.tab.c"
     break;
 
   case 98:
-#line 367 "myanalyzer.y"
+#line 364 "myanalyzer.y"
                             { (yyval.str) = (yyvsp[0].str); }
 #line 2255 "myanalyzer.tab.c"
     break;
 
   case 99:
-#line 368 "myanalyzer.y"
+#line 365 "myanalyzer.y"
                             { (yyval.str) = (yyvsp[0].str); }
 #line 2261 "myanalyzer.tab.c"
     break;
 
   case 100:
-#line 369 "myanalyzer.y"
+#line 366 "myanalyzer.y"
                             { (yyval.str) = (yyvsp[0].str); }
 #line 2267 "myanalyzer.tab.c"
     break;
@@ -2499,7 +2499,8 @@ yyreturn:
 #endif
   return yyresult;
 }
-#line 373 "myanalyzer.y"
+#line 370 "myanalyzer.y"
+
 
 int main() {
     if ( yyparse() != 0 )
