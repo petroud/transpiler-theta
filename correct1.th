@@ -1,0 +1,69 @@
+const ANOREXIC = 15.0: scalar;
+const UNDERWEIGHT = 18.5: scalar;
+const IDEAL = 24.9: scalar;
+const OVERWEIGHT = 25.9: scalar;
+const OBESE = 30.1: scalar;
+
+height, age: integer;
+weight: scalar;
+
+def calcBMI(h: integer, ag: integer, w: scalar) -> scalar:
+    return (100**2 * w) / (h**2);
+enddef;
+
+def printResult(bmi: scalar):
+
+    writeStr("Your BMI is: ");
+    writeScalar(bmi);
+    writeStr("\n");
+
+    if(bmi <= ANOREXIC):
+        writeStr("You are Anorexic...\n");
+        return;
+    endif;
+
+    if(bmi > ANOREXIC and bmi <= UNDERWEIGHT):
+        writeStr("You are Underweight...\n");
+        return;
+    endif;
+
+    if(bmi > UNDERWEIGHT and bmi <= IDEAL):
+        writeStr("You are Ideal...\n");
+        return;
+    endif;
+
+    if(bmi > IDEAL and bmi <= OVERWEIGHT):
+        writeStr("You are Overweight...\n");
+        return;
+    endif;
+
+    if(bmi > OVERWEIGHT and bmi <= OBESE):
+        writeStr("You are Obese...\n");
+        return;
+    endif;
+
+    if(bmi > OBESE):
+        writeStr("Limit reached...\n");
+    endif;
+
+enddef;
+
+
+def main():
+
+    bmi_local: scalar;
+
+    writeStr("Enter you height: ");
+    height = readInteger();
+    
+    writeStr("Enter you age: ");
+    age = readInteger();
+
+    writeStr("Enter you weight(xx.x): ");
+    weight = readScalar();
+
+    bmi_local = calcBMI(height, age, weight);
+
+    printResult(bmi_local);
+
+enddef;
