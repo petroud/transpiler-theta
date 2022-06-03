@@ -1,3 +1,11 @@
+-- This programs keeps record of the outcome scores
+-- of 6 matches between Olympiacos and Panathinaikos
+-- It stores the data in arrays and perform multiple
+-- operations on them using for and while loops. It
+-- prints the scores, the difference between the scores
+-- and the average score per team for the 6 matches 
+-- by iterating through the arrays
+
 olympiacos[6], panathinaikos[6]: integer;
 difference[6]: integer;
 olympiacosWins, panathinaikosWins: integer;

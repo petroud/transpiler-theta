@@ -1,3 +1,7 @@
+-- This program asks the user for its age, height and weight. Then
+-- it calculates his BMI and prints a message depending on the
+-- BMI range.
+
 const ANOREXIC = 15.0: scalar;
 const UNDERWEIGHT = 18.5: scalar;
 const IDEAL = 24.9: scalar;
