@@ -34,10 +34,10 @@ def quickSort(a[]:integer, low:integer, high:integer) -> void:
         j = high;
         while (i < j):
             while(a[i] <= a[pivot] and i < high):
-                i = i+1;
+                i = i + 1;
             endwhile;
             while(a[j] > a[pivot]):
-                j = j-1;
+                j = j - 1;
             endwhile;
             if (i < j):
                 swap(a,i,j);
@@ -53,7 +53,7 @@ enddef;
 def printArray(a[]:integer, size:integer):
     for i in [0:size]:
         writeInteger(a[i]);
-        if (i==size-1):
+        if (i==size - 1):
             continue;
         endif;
         writeStr(", ");
@@ -67,8 +67,6 @@ def main():
 
     a[100]:integer;
 
-    writeStr("Give a seed for the random number generator: ");
-    readInteger(next_random);
 
     -- Create an array of random numbers from 0 to 999
     for i in [0:aSize]:
@@ -78,7 +76,7 @@ def main():
     writeStr("Random array generated: ");
     printArray(a,aSize);
 
-    quickSort(a,0,aSize-1);
+    quickSort(a,0,aSize - 1);
 
     writeStr("Sorted array: ");
     printArray(a,aSize);

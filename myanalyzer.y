@@ -18,6 +18,7 @@
 
 
 /* Theta Keywords */
+%token KW_VOID
 %token KW_INTEGER
 %token KW_REAL
 %token KW_STR
@@ -124,7 +125,7 @@
 // Var types
 %type <str> var_decl
 %type <str> var_strings
-%type <str> var_decl_member
+%type <str> var_chain
 
 // Loops
 %type <str> for_loop
@@ -205,14 +206,12 @@ const_assign:
 //----------------- Variable declarations ------------------
 
 var_decl:
-        var_strings COLON data_type SEMICOLON   { $$ = template("%s %s;\n", $3, $1); }
-    |   var_strings COMMA var_decl_member       { $$ = template("%s, %s;", $3, $1); }
+        var_chain COLON data_type SEMICOLON   { $$ = template("%s %s;\n", $3, $1); }
 ;
 
-var_decl_member:
-        var_strings COMMA var_decl_member       { $$ = template("%s, %s", $1, $3); }
-    |   var_strings COLON data_type SEMICOLON   { $$ = template("%s %s", $3, $1); }
-;
+var_chain:
+        var_strings                         { $$ = $1; }
+    |   var_chain COMMA var_strings         { $$ = template("%s, %s", $1, $3); }
 
 var_strings:
         TK_IDENTIFIER                                               { $$ = template("%s", $1); }
@@ -224,6 +223,7 @@ data_type:
     |   KW_STR      { $$ = template("str"); }
     |   KW_REAL     { $$ = template("double"); }
     |   KW_BOOLEAN  { $$ = template("bool"); }
+    |   KW_VOID     { $$ = template("void"); }
 ;
 
 //---------------- Function transpilation -----------------
@@ -260,8 +260,8 @@ statements:
 ;
 
 statement:
-        assign_object SEMICOLON         { $$ = template("%s", $1); }
-    |   function_call SEMICOLON         { $$ = template("%s", $1); }
+        assign_object SEMICOLON         { $$ = template("%s;", $1); }
+    |   function_call SEMICOLON         { $$ = template("%s;", $1); }
     |   KW_CONTINUE SEMICOLON           { $$ = template("\tcontinue;\n"); }
     |   KW_BREAK SEMICOLON              { $$ = template("\tbreak;\n"); }
     |   for_loop                        { $$ = template("\t%s\n", $1); }
@@ -274,11 +274,11 @@ statement:
 
 
 assign_object:
-    var_strings OP_ASSIGN expression   { $$ = template("%s = %s;\n", $1, $3); }
+    var_strings OP_ASSIGN expression   { $$ = template("%s = %s", $1, $3); }
 ;
 
 function_call:
-    TK_IDENTIFIER L_PARENTHESIS function_call_chain R_PARENTHESIS    { $$ = template("%s(%s);", $1, $3); }
+    TK_IDENTIFIER L_PARENTHESIS function_call_chain R_PARENTHESIS    { $$ = template("%s(%s)", $1, $3); }
 ;
 
 function_call_chain:
@@ -290,20 +290,20 @@ function_call_chain:
 
 for_loop:
         KW_FOR TK_IDENTIFIER KW_IN L_BRACKET expression COLON expression R_BRACKET COLON statements KW_ENDFOR SEMICOLON
-        { $$ = template("\nfor(%s = %s; %s<=%s; %s++){\n\t%s\n}\n", $2, $5, $2, $7, $2, $10); }
+        { $$ = template("\n\tfor(int %s = %s; %s<%s; %s++){\n\n\t%s\n\t}\n", $2, $5, $2, $7, $2, $10); }
     |   KW_FOR TK_IDENTIFIER KW_IN L_BRACKET expression COLON expression COLON expression R_BRACKET COLON statements KW_ENDFOR SEMICOLON
-        { $$ = template("\nfor(%s = %s; %s<=%s; %s = %s + %s){\n\t%s\n}\n", $2, $5, $2, $9, $2, $2, $7, $12); }
+        { $$ = template("\n\tfor(int %s = %s; %s<%s; %s = %s + %s){\n\n\t%s\n\t}\n", $2, $5, $2, $9, $2, $2, $7, $12); }
 
 while_loop:
         KW_WHILE L_PARENTHESIS expression R_PARENTHESIS COLON statements KW_ENDWHILE SEMICOLON
-        { $$ = template("\nwhile(%s){\n\t%s\n}\n", $3, $6);}
+        { $$ = template("\n\twhile(%s){\n\t\t%s\n\t}", $3, $6);}
 ;
 
 if_block:
         KW_IF L_PARENTHESIS expression R_PARENTHESIS COLON statements KW_ENDIF SEMICOLON
-        { $$ = template("\nif(%s){\n\t%s\n}\n", $3, $6);}
+        { $$ = template("\n\tif(%s){\n\t%s\n\t}\n", $3, $6);}
     |   KW_IF L_PARENTHESIS expression R_PARENTHESIS COLON statements KW_ELSE COLON statements KW_ENDIF SEMICOLON
-        { $$ = template("\nif(%s){\n\t%s\n}\nelse{\n\t%s\n}", $3, $6, $9); }
+        { $$ = template("\n\tif(%s){\n\t%s\n\t}\nelse{\n\t%s\t\n}", $3, $6, $9); }
 ;
 
 return_statement:
@@ -325,7 +325,7 @@ expression:
     |   expression OP_MINUS expression               { $$ = template("%s - %s", $1, $3); }
     |   expression OP_MUL expression                 { $$ = template("%s * %s", $1, $3); }
     |   expression OP_DIV expression                 { $$ = template("%s / %s", $1, $3); }
-    |   expression OP_MOD expression                 { $$ = template("%s \% %s", $1, $3); }
+    |   expression OP_MOD expression                 { $$ = template("%s %% %s", $1, $3); }
     |   expression OP_POW expression                 { $$ = template("pow(%s,%s)", $1, $3); }
     |   expression OP_EQ  expression                 { $$ = template("%s == %s", $1, $3); }
     |   expression OP_NEQ expression                 { $$ = template("%s != %s", $1, $3); }
@@ -340,7 +340,7 @@ expression:
     |   expression OP_ASSIGN_DEC expression          { $$ = template("%s-=%s", $1, $3); }
     |   expression OP_ASSIGN_MUL expression          { $$ = template("%s*=%s", $1, $3); }
     |   expression OP_ASSIGN_DIV expression          { $$ = template("%s/=%s", $1, $3); }
-    |   expression OP_ASSIGN_MOD expression          { $$ = template("%s = %s \% %s", $1, $1, $3); }
+    |   expression OP_ASSIGN_MOD expression          { $$ = template("%s = %s %% %s", $1, $1, $3); }
     |   array_expression            { $$ = $1; }
     |   TK_IDENTIFIER               { $$ = $1; }
     |   TK_INTEGER                  { $$ = $1; }

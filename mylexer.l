@@ -16,6 +16,7 @@ STRING      \"[^\n]*\"
 
 %%
 
+"void"          { return KW_VOID;}
 "integer"       { printf("Token KEYWORD_INTEGER: %s\n", yytext); return KW_INTEGER; }
 "scalar"        { printf("Token KEYWORD_REAL: %s\n", yytext); return KW_REAL; }
 "str"           { printf("Token KEYWORD_STR: %s\n", yytext); return KW_STR; }
