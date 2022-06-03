@@ -855,302 +855,302 @@ YY_RULE_SETUP
 case 2:
 YY_RULE_SETUP
 #line 20 "mylexer.l"
-{ printf("Token KEYWORD_INTEGER: %s\n", yytext); return KW_INTEGER; }
+{ return KW_INTEGER; }
 	YY_BREAK
 case 3:
 YY_RULE_SETUP
 #line 21 "mylexer.l"
-{ printf("Token KEYWORD_REAL: %s\n", yytext); return KW_REAL; }
+{ return KW_REAL; }
 	YY_BREAK
 case 4:
 YY_RULE_SETUP
 #line 22 "mylexer.l"
-{ printf("Token KEYWORD_STR: %s\n", yytext); return KW_STR; }
+{ return KW_STR; }
 	YY_BREAK
 case 5:
 YY_RULE_SETUP
 #line 23 "mylexer.l"
-{ printf("Token KEYWORD_BOOLEAN: %s\n", yytext); return KW_BOOLEAN; }
+{ return KW_BOOLEAN; }
 	YY_BREAK
 case 6:
 YY_RULE_SETUP
 #line 24 "mylexer.l"
-{ printf("Token KEYWORD_TRUE: %s\n", yytext); return KW_TRUE; }
+{ return KW_TRUE; }
 	YY_BREAK
 case 7:
 YY_RULE_SETUP
 #line 25 "mylexer.l"
-{ printf("Token KEYWORD_FALSE: %s\n", yytext); return KW_FALSE; }
+{ return KW_FALSE; }
 	YY_BREAK
 case 8:
 YY_RULE_SETUP
 #line 26 "mylexer.l"
-{ printf("Token KEYWORD_CONST: %s\n", yytext); return KW_CONST; }
+{ return KW_CONST; }
 	YY_BREAK
 case 9:
 YY_RULE_SETUP
 #line 27 "mylexer.l"
-{ printf("Token KEYWORD_IF: %s\n", yytext); return KW_IF; }
+{ return KW_IF; }
 	YY_BREAK
 case 10:
 YY_RULE_SETUP
 #line 28 "mylexer.l"
-{ printf("Token KEYWORD_ELSE: %s\n", yytext); return KW_ELSE; }
+{ return KW_ELSE; }
 	YY_BREAK
 case 11:
 YY_RULE_SETUP
 #line 29 "mylexer.l"
-{ printf("Token KEYWORD_ENDIF: %s\n", yytext); return KW_ENDIF; }
+{ return KW_ENDIF; }
 	YY_BREAK
 case 12:
 YY_RULE_SETUP
 #line 30 "mylexer.l"
-{ printf("Token KEYWORD_FOR: %s\n", yytext); return KW_FOR; }
+{ return KW_FOR; }
 	YY_BREAK
 case 13:
 YY_RULE_SETUP
 #line 31 "mylexer.l"
-{ printf("Token KEYWORD_IN: %s\n", yytext); return KW_IN; }
+{ return KW_IN; }
 	YY_BREAK
 case 14:
 YY_RULE_SETUP
 #line 32 "mylexer.l"
-{ printf("Token KEYWORD_ENDFOR: %s\n", yytext); return KW_ENDFOR; }
+{ return KW_ENDFOR; }
 	YY_BREAK
 case 15:
 YY_RULE_SETUP
 #line 33 "mylexer.l"
-{ printf("Token KEYWORD_WHILE: %s\n", yytext); return KW_WHILE; }
+{ return KW_WHILE; }
 	YY_BREAK
 case 16:
 YY_RULE_SETUP
 #line 34 "mylexer.l"
-{ printf("Token KEYWORD_ENDWHILE: %s\n", yytext); return KW_ENDWHILE; }
+{ return KW_ENDWHILE; }
 	YY_BREAK
 case 17:
 YY_RULE_SETUP
 #line 35 "mylexer.l"
-{ printf("Token KEYWORD_BREAK: %s\n", yytext); return KW_BREAK; }
+{ return KW_BREAK; }
 	YY_BREAK
 case 18:
 YY_RULE_SETUP
 #line 36 "mylexer.l"
-{ printf("Token KEYWORD_CONTINUE: %s\n", yytext); return KW_CONTINUE; }
+{ return KW_CONTINUE; }
 	YY_BREAK
 case 19:
 YY_RULE_SETUP
 #line 37 "mylexer.l"
-{ printf("Token KEYWORD_DEF: %s\n", yytext); return KW_DEF; }
+{ return KW_DEF; }
 	YY_BREAK
 case 20:
 YY_RULE_SETUP
 #line 38 "mylexer.l"
-{ printf("Token KEYWORD_ENDDEF: %s\n", yytext); return KW_ENDDEF; }
+{ return KW_ENDDEF; }
 	YY_BREAK
 case 21:
 YY_RULE_SETUP
 #line 39 "mylexer.l"
-{ printf("Token KEYWORD_MAIN: %s\n", yytext); return KW_MAIN; }
+{ return KW_MAIN; }
 	YY_BREAK
 case 22:
 YY_RULE_SETUP
 #line 40 "mylexer.l"
-{ printf("Token KEYWORD_RETURN: %s\n", yytext); return KW_RETURN; }
+{ return KW_RETURN; }
 	YY_BREAK
 case 23:
 YY_RULE_SETUP
 #line 43 "mylexer.l"
-{ printf("Token SEMICOLON: %s\n", yytext); return SEMICOLON; }
+{ return SEMICOLON; }
 	YY_BREAK
 case 24:
 YY_RULE_SETUP
 #line 44 "mylexer.l"
-{ printf("Token L_PARENTHESIS: %s\n", yytext); return L_PARENTHESIS; }
+{ return L_PARENTHESIS; }
 	YY_BREAK
 case 25:
 YY_RULE_SETUP
 #line 45 "mylexer.l"
-{ printf("Token R_PARENTHESIS: %s\n", yytext); return R_PARENTHESIS; }
+{ return R_PARENTHESIS; }
 	YY_BREAK
 case 26:
 YY_RULE_SETUP
 #line 46 "mylexer.l"
-{ printf("Token COMMA: %s\n", yytext); return COMMA; }
+{ return COMMA; }
 	YY_BREAK
 case 27:
 YY_RULE_SETUP
 #line 47 "mylexer.l"
-{ printf("Token L_BRACKET: %s\n", yytext); return L_BRACKET; }
+{ return L_BRACKET; }
 	YY_BREAK
 case 28:
 YY_RULE_SETUP
 #line 48 "mylexer.l"
-{ printf("Token R_BRACKET: %s\n", yytext); return R_BRACKET; }
+{ return R_BRACKET; }
 	YY_BREAK
 case 29:
 YY_RULE_SETUP
 #line 49 "mylexer.l"
-{ printf("Token COLON: %s\n", yytext); return COLON; }
+{ return COLON; }
 	YY_BREAK
 case 30:
 YY_RULE_SETUP
 #line 52 "mylexer.l"
-{ printf("Token OP_PLUS: %s\n", yytext); return OP_PLUS; }
+{ return OP_PLUS; }
 	YY_BREAK
 case 31:
 YY_RULE_SETUP
 #line 53 "mylexer.l"
-{ printf("Token OP_MINUS: %s\n", yytext); return OP_MINUS; }
+{ return OP_MINUS; }
 	YY_BREAK
 case 32:
 YY_RULE_SETUP
 #line 54 "mylexer.l"
-{ printf("Token OP_MUL: %s\n", yytext); return OP_MUL; }
+{ return OP_MUL; }
 	YY_BREAK
 case 33:
 YY_RULE_SETUP
 #line 55 "mylexer.l"
-{ printf("Token OP_DIV: %s\n", yytext); return OP_DIV; }
+{ return OP_DIV; }
 	YY_BREAK
 case 34:
 YY_RULE_SETUP
 #line 56 "mylexer.l"
-{ printf("Token OP_MOD: %s\n", yytext); return OP_MOD; }
+{ return OP_MOD; }
 	YY_BREAK
 case 35:
 YY_RULE_SETUP
 #line 57 "mylexer.l"
-{ printf("Token OP_POW: %s\n", yytext); return OP_POW; }
+{ return OP_POW; }
 	YY_BREAK
 case 36:
 YY_RULE_SETUP
 #line 58 "mylexer.l"
-{ printf("Token OP_EQ: %s\n", yytext); return OP_EQ; }
+{ return OP_EQ; }
 	YY_BREAK
 case 37:
 YY_RULE_SETUP
 #line 59 "mylexer.l"
-{ printf("Token OP_NEQ: %s\n", yytext); return OP_NEQ; }
+{ return OP_NEQ; }
 	YY_BREAK
 case 38:
 YY_RULE_SETUP
 #line 60 "mylexer.l"
-{ printf("Token OP_LESS: %s\n", yytext); return OP_LESS; }
+{ return OP_LESS; }
 	YY_BREAK
 case 39:
 YY_RULE_SETUP
 #line 61 "mylexer.l"
-{ printf("Token OP_LESSEQ: %s\n", yytext); return OP_LESSEQ; }
+{ return OP_LESSEQ; }
 	YY_BREAK
 case 40:
 YY_RULE_SETUP
 #line 62 "mylexer.l"
-{ printf("Token OP_GREATER: %s\n", yytext); return OP_GREATER; }
+{ return OP_GREATER; }
 	YY_BREAK
 case 41:
 YY_RULE_SETUP
 #line 63 "mylexer.l"
-{ printf("Token OP_GREATEREQ: %s\n", yytext); return OP_GREATEREQ; }
+{ return OP_GREATEREQ; }
 	YY_BREAK
 case 42:
 YY_RULE_SETUP
 #line 64 "mylexer.l"
-{ printf("Token OP_AND: %s\n", yytext); return OP_AND; }
+{ return OP_AND; }
 	YY_BREAK
 case 43:
 YY_RULE_SETUP
 #line 65 "mylexer.l"
-{ printf("Token OP_OR: %s\n", yytext); return OP_OR; }
+{ return OP_OR; }
 	YY_BREAK
 case 44:
 YY_RULE_SETUP
 #line 66 "mylexer.l"
-{ printf("Token OP_NOT: %s\n", yytext); return OP_NOT;}
+{ return OP_NOT;}
 	YY_BREAK
 case 45:
 YY_RULE_SETUP
 #line 68 "mylexer.l"
-{ printf("Token OP_ASSIGN: %s\n", yytext); return OP_ASSIGN; }
+{ return OP_ASSIGN; }
 	YY_BREAK
 case 46:
 YY_RULE_SETUP
 #line 69 "mylexer.l"
-{ printf("Token OP_ASSIGN_INCR: %s\n", yytext); return OP_ASSIGN_INCR; }
+{ return OP_ASSIGN_INCR; }
 	YY_BREAK
 case 47:
 YY_RULE_SETUP
 #line 70 "mylexer.l"
-{ printf("Token OP_ASSIGN_DEC: %s\n", yytext); return OP_ASSIGN_DEC; }
+{ return OP_ASSIGN_DEC; }
 	YY_BREAK
 case 48:
 YY_RULE_SETUP
 #line 71 "mylexer.l"
-{ printf("Token OP_ASSING_MUL: %s\n", yytext); return OP_ASSIGN_MUL; }
+{ return OP_ASSIGN_MUL; }
 	YY_BREAK
 case 49:
 YY_RULE_SETUP
 #line 72 "mylexer.l"
-{ printf("Token OP_ASSIGN_DIV: %s\n", yytext); return OP_ASSIGN_DIV; }
+{ return OP_ASSIGN_DIV; }
 	YY_BREAK
 case 50:
 YY_RULE_SETUP
 #line 73 "mylexer.l"
-{ printf("Token OP_ASSIGN_MOD: %s\n", yytext); return OP_ASSIGN_MOD; }
+{ return OP_ASSIGN_MOD; }
 	YY_BREAK
 case 51:
 YY_RULE_SETUP
 #line 76 "mylexer.l"
-{ printf("Token FUNC_RSTR: %s\n", yytext); return FUNC_RSTR; }
+{ return FUNC_RSTR; }
 	YY_BREAK
 case 52:
 YY_RULE_SETUP
 #line 77 "mylexer.l"
-{ printf("Token FUNC_RINT: %s\n", yytext); return FUNC_RINT; }
+{ return FUNC_RINT; }
 	YY_BREAK
 case 53:
 YY_RULE_SETUP
 #line 78 "mylexer.l"
-{ printf("Token FUNC_RSCAL: %s\n", yytext); return FUNC_RSCAL; }
+{ return FUNC_RSCAL; }
 	YY_BREAK
 case 54:
 YY_RULE_SETUP
 #line 79 "mylexer.l"
-{ printf("Token FUNC_WSTR: %s\n", yytext); return FUNC_WSTR; }
+{ return FUNC_WSTR; }
 	YY_BREAK
 case 55:
 YY_RULE_SETUP
 #line 80 "mylexer.l"
-{ printf("Token FUNC_WINT: %s\n", yytext); return FUNC_WINT; }
+{ return FUNC_WINT; }
 	YY_BREAK
 case 56:
 YY_RULE_SETUP
 #line 81 "mylexer.l"
-{ printf("Token FUNC_WSCAL: %s\n", yytext); return FUNC_WSCAL; }
+{ return FUNC_WSCAL; }
 	YY_BREAK
 case 57:
 YY_RULE_SETUP
 #line 82 "mylexer.l"
-{ printf("Token FUNC_WRT: %s\n", yytext); return FUNC_WRT; }
+{ return FUNC_WRT; }
 	YY_BREAK
 case 58:
 YY_RULE_SETUP
 #line 85 "mylexer.l"
-{ printf("Token IDENTIFIER: %s\n", yytext); yylval.str = strdup(yytext); return TK_IDENTIFIER; }
+{ yylval.str = strdup(yytext); return TK_IDENTIFIER; }
 	YY_BREAK
 case 59:
 YY_RULE_SETUP
 #line 86 "mylexer.l"
-{ printf("Token CONST_INT: %s\n", yytext); yylval.str = strdup(yytext); return TK_INTEGER;  }
+{ yylval.str = strdup(yytext); return TK_INTEGER;  }
 	YY_BREAK
 case 60:
 YY_RULE_SETUP
 #line 87 "mylexer.l"
-{ printf("Token CONST_REAL: %s\n", yytext);  yylval.str = strdup(yytext); return TK_REAL; }
+{ yylval.str = strdup(yytext); return TK_REAL; }
 	YY_BREAK
 case 61:
 YY_RULE_SETUP
 #line 88 "mylexer.l"
-{ printf("Token CONST_STRING: %s\n", yytext);  yylval.str = strdup(yytext); return TK_STRING; }
+{ yylval.str = strdup(yytext); return TK_STRING; }
 	YY_BREAK
 case 62:
 YY_RULE_SETUP
@@ -1175,7 +1175,7 @@ return EOF;
 case 65:
 YY_RULE_SETUP
 #line 97 "mylexer.l"
-{printf("Unrecognized Token '%s' in line %d\n", yytext, line_num); exit(1);}
+{ printf("Unrecognized Token '%s' in line %d\n", yytext, line_num); exit(1);}
 	YY_BREAK
 case 66:
 YY_RULE_SETUP
@@ -2186,5 +2186,4 @@ void yyfree (void * ptr )
 #define YYTABLES_NAME "yytables"
 
 #line 98 "mylexer.l"
-
 

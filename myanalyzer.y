@@ -274,7 +274,12 @@ statement:
 
 
 assign_object:
-    var_strings OP_ASSIGN expression   { $$ = template("%s = %s", $1, $3); }
+      var_strings OP_ASSIGN expression              { $$ = template("%s = %s", $1, $3); }
+    | var_strings OP_ASSIGN_INCR expression         { $$ = template("%s+=%s", $1, $3); }
+    | var_strings OP_ASSIGN_DEC expression          { $$ = template("%s-=%s", $1, $3); }
+    | var_strings OP_ASSIGN_MUL expression          { $$ = template("%s*=%s", $1, $3); }
+    | var_strings OP_ASSIGN_DIV expression          { $$ = template("%s/=%s", $1, $3); }
+    | var_strings OP_ASSIGN_MOD expression          { $$ = template("%s = %s %% %s", $1, $1, $3); }
 ;
 
 function_call:
@@ -303,7 +308,7 @@ if_block:
         KW_IF L_PARENTHESIS expression R_PARENTHESIS COLON statements KW_ENDIF SEMICOLON
         { $$ = template("\n\tif(%s){\n\t%s\n\t}\n", $3, $6);}
     |   KW_IF L_PARENTHESIS expression R_PARENTHESIS COLON statements KW_ELSE COLON statements KW_ENDIF SEMICOLON
-        { $$ = template("\n\tif(%s){\n\t%s\n\t}\nelse{\n\t%s\t\n}", $3, $6, $9); }
+        { $$ = template("\n\tif(%s){\n\t%s\n\t}\n\telse{\n\t%s\n\t}\n", $3, $6, $9); }
 ;
 
 return_statement:
@@ -336,11 +341,6 @@ expression:
     |   expression OP_AND expression                 { $$ = template("%s && %s", $1, $3); }
     |   expression OP_OR  expression                 { $$ = template("%s || %s", $1, $3); }
     |   OP_NOT expression                            { $$ = template("!%s", $2); }
-    |   expression OP_ASSIGN_INCR expression         { $$ = template("%s+=%s", $1, $3); }
-    |   expression OP_ASSIGN_DEC expression          { $$ = template("%s-=%s", $1, $3); }
-    |   expression OP_ASSIGN_MUL expression          { $$ = template("%s*=%s", $1, $3); }
-    |   expression OP_ASSIGN_DIV expression          { $$ = template("%s/=%s", $1, $3); }
-    |   expression OP_ASSIGN_MOD expression          { $$ = template("%s = %s %% %s", $1, $1, $3); }
     |   array_expression            { $$ = $1; }
     |   TK_IDENTIFIER               { $$ = $1; }
     |   TK_INTEGER                  { $$ = $1; }
